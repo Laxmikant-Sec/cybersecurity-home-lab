@@ -17,12 +17,13 @@ The lab is designed to strengthen practical skills in:
 
 ## Current Lab Focus
 
-The environment currently includes four major documented projects:
+The environment includes five major documented projects:
 
 1. **pfSense Firewall and Network Segmentation**
 2. **Proxmox Cybersecurity Home Lab with Wazuh and Active Directory Monitoring**
 3. **Microsoft 365 Email Security Monitoring**
 4. **Kali–Wazuh SSH Detection and Defense**
+5. **Archer BE230 Network Recovery and Kea DHCP Migration**
 
 The Proxmox project now hosts Windows and Linux virtual machines and a dedicated Wazuh monitoring server on the segmented lab network.
 
@@ -145,6 +146,13 @@ Validated controlled SSH authentication failures from Kali to Ubuntu on a dedica
 - [Full investigation, configuration examples, validation, and limitations](Kali-Wazuh-SSH-Lab/README.md)
 
 The historical architecture above describes the management network. During this scenario Kali moved to a dedicated test bridge; Ubuntu retained a management interface with forwarding disabled. Redacted custom-alert and SSH before/after screenshots are included in the project documentation.
+
+## Project 5 - Archer BE230 Recovery and pfSense Kea DHCP Migration
+
+Diagnosed an unreachable Archer BE230 V1 management interface and restored access without a factory reset. An isolated Ethernet test showed its static management IP remained on `192.168.0.2` while the pfSense lab network used `192.168.10.0/24`. Corrected Archer management IP, gateway and DNS; disabled Archer DHCP Auto; verified management access, Wi-Fi, Internet and DNS. Migrated pfSense CE 2.9.0 from ISC to Kea DHCP, validated logs and existing connectivity, and removed obsolete device reservations.
+
+- [Verified recovery procedure and technical evidence](Network-Recovery-Archer-Kea/README.md)
+- [Portfolio case study](https://shivansh2589.github.io/cyberSecurity-portfolio/archer-kea-network-recovery.html)
 
 ## Active Directory Security Monitoring Evidence
 
