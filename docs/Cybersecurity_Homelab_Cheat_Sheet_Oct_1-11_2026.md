@@ -1,3 +1,5 @@
+> Public sanitized copy. Substitute example placeholders with the addresses and names in your private operational notes. Previous Git commits may still show older versions.
+
 # CYBERSECURITY HOME LAB — MASTER COMMAND CHEAT SHEET
 **Project window:** October 1–11, 2026  
 **Prepared:** October 12, 2026  
@@ -12,55 +14,55 @@
 | Oct 1 | ASUS laptop repurposed as Proxmox host; Ubuntu VM | Proxmox VE 9.x; Ubuntu VM 100 provisioned with 2 vCPU, 4 GB RAM, 60 GB disk, VirtIO bridge; Windows/Kali/Wazuh VMs followed. |
 | Oct 1–3 | Proxmox network recovery; pfSense isolation; Wazuh integration | Repaired USB Ethernet bridge; Wazuh server and Linux/Windows endpoints communicating; restored lab access. |
 | Oct 3–4 | Windows Server 2022, AD DS, agents | Domain services checked; Windows security telemetry appeared in Wazuh; snapshots and time settings addressed. |
-| Oct 4–5 | Windows account and privileged-group testing | Security event 4720 and logon failures observed; `PrivTest` Domain Admins change test captured IDs 4728 and 4729; Wazuh custom rule 100100, level 14. |
+| Oct 4–5 | Windows account and privileged-group testing | Security event 4720 and logon failures observed; `LabTestUser` Domain Admins change test captured IDs 4728 and 4729; Wazuh custom rule 100100, level 14. |
 | Oct 5 | Wazuh alert email infrastructure | Postfix configured/tested for alert delivery; service status reviewed; Google app password used (secret not included). |
 | Oct 5–8 | Separate Microsoft 365 Email Security Monitoring project | Personal Outlook mailbox, Microsoft Graph device-code auth, Python JSONL collector, Wazuh integration, rule 100500; deduplication tested; timer scheduled. |
 | Oct 8 | Windows Server login and keyboard recovery | Regained domain Administrator session; Windows Server IP confirmed `.40`. |
 | Oct 9 | Security portfolio / LinkedIn evidence | Wazuh privileged-group detection + alert-email screenshots selected for professional presentation. |
 | Oct 10–11 | TP-Link Archer access point and home-lab network recovery | AP management login restored; config backup saved; white Internet LED; Windows client again on home-lab subnet; README troubleshooting notes updated. |
 
-**Status distinction:** The Wazuh server at `192.168.10.30` was active as of Oct 10. The Proxmox host's intended `192.168.10.80` requires a fresh verification; it was previously unreachable. `192.168.10.70` was formerly the iMac and is only *candidate free* pending DHCP mapping and conflict checks. Statuses are historical, not live network tests.
+**Status distinction:** The Wazuh server at `<LAB_IP>` was active as of Oct 10. The Proxmox host's intended `<LAB_IP>` requires a fresh verification; it was previously unreachable. `<LAB_IP>` was formerly the iMac and is only *candidate free* pending DHCP mapping and conflict checks. Statuses are historical, not live network tests.
 
 ## 2. Network and device inventory
 
 | Component | Address / detail | Notes |
 |---|---|---|
-| pfSense lab LAN | `192.168.10.1/24` | Gateway; lab subnet `192.168.10.0/24`. |
-| TP-Link Archer AP | `192.168.10.10` | AP mode; management access restored Oct 10. |
-| Wazuh Server VM | `192.168.10.30` | Active Oct 10. |
-| Windows Server 2022 | `192.168.10.40` | AD DS; confirmed Oct 8. |
-| Primary Windows 11 laptop | `192.168.10.50` on lab Wi-Fi | Also obtained `.117` in one Oct 10 wired test; verify interface before use. |
-| Kali Linux VM | `192.168.10.60` | Wazuh agent. |
-| Former iMac reservation | `192.168.10.70` | iMac removed; validate lease/static mapping before reuse. |
-| Proxmox VE host | `192.168.10.80` intended | Last reachability uncertain: check locally. |
-| Ubuntu Server VM | `192.168.10.90` | SSH/UFW and Wazuh agent. |
-| Lab SSID | `Homelab-AP_5G` | Keep distinct from upstream Orbi Wi-Fi. |
+| pfSense lab LAN | `<LAB_IP>` | Gateway; lab subnet `<LAB_IP>`. |
+| TP-Link Archer AP | `<LAB_IP>` | AP mode; management access restored Oct 10. |
+| Wazuh Server VM | `<LAB_IP>` | Active Oct 10. |
+| Windows Server 2022 | `<LAB_IP>` | AD DS; confirmed Oct 8. |
+| Primary Windows 11 laptop | `<LAB_IP>` on lab Wi-Fi | Also obtained `.117` in one Oct 10 wired test; verify interface before use. |
+| Kali Linux VM | `<LAB_IP>` | Wazuh agent. |
+| Former iMac reservation | `<LAB_IP>` | iMac removed; validate lease/static mapping before reuse. |
+| Proxmox VE host | `<LAB_IP>` intended | Last reachability uncertain: check locally. |
+| Ubuntu Server VM | `<LAB_IP>` | SSH/UFW and Wazuh agent. |
+| Lab SSID | `LAB_WIFI` | Keep distinct from upstream Orbi Wi-Fi. |
 | Upstream home Wi-Fi | Orbi | Separate upstream network. Do not assume the client is on lab Wi-Fi. |
 
 ### Windows — network diagnostics [REFERENCE, with commands previously used]
 ```powershell
 ipconfig /all
 ipconfig
-ping 192.168.10.1
-ping 192.168.10.10
-ping 192.168.10.30
-ping 192.168.10.80
+ping <LAB_IP>
+ping <LAB_IP>
+ping <LAB_IP>
+ping <LAB_IP>
 arp -a
-tracert 192.168.10.1
+tracert <LAB_IP>
 Get-NetIPConfiguration
 Get-NetAdapter
 Get-NetConnectionProfile
-Test-NetConnection 192.168.10.30 -Port 443
+Test-NetConnection <LAB_IP> -Port 443
 ```
-**Interpretation:** First confirm the laptop is on `192.168.10.x`, gateway `192.168.10.1`, and the intended SSID. Being connected to Orbi rather than `Homelab-AP_5G` can explain failed access to lab devices. `ping` failure alone does not prove the host is down because ICMP might be blocked.
+**Interpretation:** First confirm the laptop is on `192.168.10.x`, gateway `<LAB_IP>`, and the intended SSID. Being connected to Orbi rather than `LAB_WIFI` can explain failed access to lab devices. `ping` failure alone does not prove the host is down because ICMP might be blocked.
 
 ### Linux — network diagnostics [REFERENCE]
 ```bash
 ip -br address
 ip route
 ip link show
-ping -c 4 192.168.10.1
-ping -c 4 192.168.10.30
+ping -c 4 <LAB_IP>
+ping -c 4 <LAB_IP>
 ip neigh
 ss -tulpen
 resolvectl status
@@ -114,8 +116,8 @@ VM `100` was documented as `ubuntu-server` when originally created; check `qm li
 ## 4. pfSense firewall and TP-Link Archer AP
 
 ### pfSense — intended policy and recovery workflow
-- Lab gateway `192.168.10.1`; lab `192.168.10.0/24`.
-- Segment lab from upstream `192.168.0.0/24` (earlier WAN design; confirm current upstream addressing).
+- Lab gateway `<LAB_IP>`; lab `<LAB_IP>`.
+- Segment lab from upstream `<LAB_IP>` (earlier WAN design; confirm current upstream addressing).
 - Specific lab policy documented: Ubuntu ICMP permission; Windows SSH permission; Kali SSH blocked by a rule.
 - In pfSense, confirm **Interfaces**, **Firewall > Rules > LAN**, **Status > DHCP Leases**, and **Services > DHCP Server** for static mappings.
 - Confirm the AP is **access point** (not router) mode and attached to the correct subnet; avoid accidental double NAT.
@@ -124,7 +126,7 @@ VM `100` was documented as `ubuntu-server` when originally created; check `qm li
 ### Oct 10 AP recovery checklist [VERIFIED actions, no shell command needed]
 1. Verify Windows is on lab SSID or correctly attached by Ethernet, rather than auto-switching to Orbi.
 2. Verify `ipconfig /all` shows `192.168.10.x`, gateway `.1`.
-3. Check ping/ARP reachability for AP `192.168.10.10`.
+3. Check ping/ARP reachability for AP `<LAB_IP>`.
 4. Open the TP-Link management page; successful login was recovered.
 5. Save a **configuration backup**; backup was saved.
 6. Check client addressing, wireless internet access, and LEDs; AP Internet LED returned to solid white.
@@ -153,7 +155,7 @@ sudo systemctl status ssh --no-pager
 sudo ufw status verbose
 sudo ufw status numbered
 ss -tln | grep ':22'
-ssh <username>@192.168.10.90
+ssh <username>@<LAB_IP>
 ```
 Do not enable or restrict UFW remotely unless you have explicitly allowed the management connection first.
 
@@ -188,7 +190,7 @@ Get-Service WazuhSvc
 NET START WazuhSvc
 Get-Content 'C:\Program Files (x86)\ossec-agent\ossec.log' -Tail 50
 ```
-Agent enrollment pointed to Wazuh manager `192.168.10.30`. We saw Windows workstation `SHIVANSH`, Ubuntu, Kali, and Windows Server 2022 agents active during project work. Exact assigned agent IDs may change after reinstall/re-enrollment.
+Agent enrollment pointed to Wazuh manager `<LAB_IP>`. We saw Windows workstation `LAB_WORKSTATION`, Ubuntu, Kali, and Windows Server 2022 agents active during project work. Exact assigned agent IDs may change after reinstall/re-enrollment.
 
 ### Hunting in Wazuh Dashboard [VERIFIED detections]
 - **Windows new local/domain user:** Event ID `4720`.
@@ -219,7 +221,7 @@ Get-Service NTDS
 Get-ADDomain
 Get-ADDomainController
 Get-ADGroupMember -Identity 'Domain Admins'
-Get-ADUser -Identity 'PrivTest' -Properties Enabled,MemberOf
+Get-ADUser -Identity 'LabTestUser' -Properties Enabled,MemberOf
 ```
 Run AD cmdlets on the domain controller with the AD PowerShell module and authorized account. The domain login `HOMELAB\Administrator` worked Oct 8; the lab evidence referenced `DC01.homelab.local`.
 
@@ -232,21 +234,21 @@ Get-WinEvent -FilterHashtable @{LogName='Security'; Id=4625; StartTime=(Get-Date
 **Why:** `4720` account creation; `4728/4729` group membership; `4625` failed logon. Wazuh's ingestion pipeline should be checked against the Windows Security log when events are missing from a dashboard query.
 
 ### Controlled lab account test [VERIFIED test account, CAUTION: changes domain]
-The `PrivTest` account was created and used in a tightly controlled group-membership test. The commands below are **reproduction examples**; check first whether `PrivTest` already exists.
+The `LabTestUser` account was created and used in a tightly controlled group-membership test. The commands below are **reproduction examples**; check first whether `LabTestUser` already exists.
 ```powershell
 # Run ONLY in the isolated HOMELAB domain after checking account existence:
-Get-ADUser -Filter 'SamAccountName -eq "PrivTest"'
-New-ADUser -Name 'PrivTest' -SamAccountName 'PrivTest' -AccountPassword (Read-Host -AsSecureString) -Enabled $true
-Add-ADGroupMember -Identity 'Domain Admins' -Members 'PrivTest'
+Get-ADUser -Filter 'SamAccountName -eq "LabTestUser"'
+New-ADUser -Name 'LabTestUser' -SamAccountName 'LabTestUser' -AccountPassword (Read-Host -AsSecureString) -Enabled $true
+Add-ADGroupMember -Identity 'Domain Admins' -Members 'LabTestUser'
 Get-ADGroupMember -Identity 'Domain Admins'
-Remove-ADGroupMember -Identity 'Domain Admins' -Members 'PrivTest' -Confirm:$true
+Remove-ADGroupMember -Identity 'Domain Admins' -Members 'LabTestUser' -Confirm:$true
 ```
 **Security:** Never leave a test principal in Domain Admins. Check for events `4728` and `4729` in Wazuh and use the least privilege needed for normal lab operation. `wazuhtest` was a prior temporary test account that was deleted; do not recreate it unless required for a new test.
 
 ### Login / console recovery [VERIFIED]
 - Windows Server 2022 keyboard issues were isolated using Notepad and SPICE/noVNC console.
 - Login eventually succeeded as `HOMELAB\Administrator`.
-- Server address `192.168.10.40` confirmed using `ipconfig /all`.
+- Server address `<LAB_IP>` confirmed using `ipconfig /all`.
 - Avoid password resets or repeated failed attempts before validating console keyboard behavior and account context.
 
 ## 8. Wazuh email alerts / Postfix
@@ -278,12 +280,12 @@ A sample configuration in the project at one point showed `<email_notification>n
 
 ### Files and locations [VERIFIED]
 ```text
-/home/lax/m365_monitor.py
-/home/lax/m365_email_events.jsonl
-/home/lax/.m365_seen_ids.json
-/home/lax/.m365_token_cache.bin
-/home/lax/.m365_monitor.conf
-/home/lax/m365-monitor-venv/bin/python
+/home/USERNAME/m365_monitor.py
+/home/USERNAME/m365_email_events.jsonl
+/home/USERNAME/.m365_seen_ids.json
+/home/USERNAME/.m365_token_cache.bin
+/home/USERNAME/.m365_monitor.conf
+/home/USERNAME/m365-monitor-venv/bin/python
 /etc/systemd/system/m365-email-monitor.service
 /etc/systemd/system/m365-email-monitor.timer
 ```
@@ -313,7 +315,7 @@ Client ID config: ~/.m365_monitor.conf
 ### systemd service [VERIFIED configuration]
 ```ini
 [Service]
-ExecStart=/home/lax/m365-monitor-venv/bin/python /home/lax/m365_monitor.py
+ExecStart=/home/USERNAME/m365-monitor-venv/bin/python /home/USERNAME/m365_monitor.py
 ```
 This is a **relevant excerpt**, not a full replacement for the service file; keep the existing `[Unit]`, user, working directory, and other service settings intact.
 
@@ -334,31 +336,31 @@ sudo systemctl status m365-email-monitor.timer --no-pager
 sudo systemctl status m365-email-monitor.service --no-pager
 systemctl list-timers --all | grep m365
 sudo journalctl -u m365-email-monitor.service -n 80 --no-pager
-wc -l /home/lax/m365_email_events.jsonl
-tail -n 3 /home/lax/m365_email_events.jsonl
-stat /home/lax/.m365_seen_ids.json
+wc -l /home/USERNAME/m365_email_events.jsonl
+tail -n 3 /home/USERNAME/m365_email_events.jsonl
+stat /home/USERNAME/.m365_seen_ids.json
 ```
 **Result achieved:** The JSONL feed was parsed into Wazuh and rule `100500` matched. Deduplication was checked with `wc -l`: file remained **51 lines → 51 lines** on an unchanged fetch. The state file had `600` permissions. Wazuh manager-generated local logs may appear under agent ID `000`.
 
 ### Wazuh JSON integration [VERIFIED concept]
-The Wazuh logcollector tails `/home/lax/m365_email_events.jsonl` with a JSON decoder, and the lab's custom detection rule is `100500`. Check the existing Wazuh `ossec.conf` and `local_rules.xml` for the precise active stanza rather than replacing them from a simplified cheat-sheet snippet.
+The Wazuh logcollector tails `/home/USERNAME/m365_email_events.jsonl` with a JSON decoder, and the lab's custom detection rule is `100500`. Check the existing Wazuh `ossec.conf` and `local_rules.xml` for the precise active stanza rather than replacing them from a simplified cheat-sheet snippet.
 
 ## 10. Security operations quick-reference
 
 | Need | Device | Command or place to start |
 |---|---|---|
 | Am I on the correct network? | Windows | `ipconfig /all`; inspect Wi-Fi SSID |
-| Can I reach pfSense? | Windows/Linux | `ping 192.168.10.1` |
-| Can I reach Wazuh? | Windows/Linux | `ping 192.168.10.30` then browser/service check |
+| Can I reach pfSense? | Windows/Linux | `ping <LAB_IP>` |
+| Can I reach Wazuh? | Windows/Linux | `ping <LAB_IP>` then browser/service check |
 | Is Proxmox's IP correct? | Proxmox console | `ip -br address`, `ip route`, `qm list` |
 | Is Proxmox bridge attached? | Proxmox console | `bridge link`, `ip link show vmbr0` |
 | Is Wazuh alive? | Wazuh | `sudo systemctl status wazuh-manager --no-pager` |
 | Are agents enrolled? | Wazuh | `sudo /var/ossec/bin/agent_control -l` |
 | Is Windows agent running? | Windows | `Get-Service WazuhSvc` |
-| Check domain users | DC PowerShell | `Get-ADUser -Identity 'PrivTest'` |
+| Check domain users | DC PowerShell | `Get-ADUser -Identity 'LabTestUser'` |
 | See group changes | DC PowerShell | `Get-WinEvent -FilterHashtable @{LogName='Security';Id=4728,4729}` |
 | Check Outlook monitor timer | Wazuh | `systemctl list-timers --all \| grep m365` |
-| Check JSONL deduplication | Wazuh | `wc -l /home/lax/m365_email_events.jsonl` |
+| Check JSONL deduplication | Wazuh | `wc -l /home/USERNAME/m365_email_events.jsonl` |
 | Find specific alerts | Wazuh UI | `rule.id:100100` or `rule.id:100500` |
 | Check relay queue | Wazuh | `sudo postqueue -p` |
 
