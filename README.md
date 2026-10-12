@@ -152,7 +152,7 @@ The historical architecture above describes the management network. During this 
 Diagnosed an unreachable Archer BE230 V1 management interface and restored access without a factory reset. An isolated Ethernet test showed its static management IP remained on `192.168.0.2` while the pfSense lab network used `192.168.10.0/24`. Corrected Archer management IP, gateway and DNS; disabled Archer DHCP Auto; verified management access, Wi-Fi, Internet and DNS. Migrated pfSense CE 2.9.0 from ISC to Kea DHCP, validated logs and existing connectivity, and removed obsolete device reservations.
 
 - [Verified recovery procedure and technical evidence](Network-Recovery-Archer-Kea/README.md)
-- [Portfolio case study](https://shivansh2589.github.io/cyberSecurity-portfolio/archer-kea-network-recovery.html)
+- [Portfolio case study](https://cybersecurity-portfolio-bcu.pages.dev/archer-kea-network-recovery)
 
 ## Active Directory Security Monitoring Evidence
 
@@ -282,4 +282,4 @@ This repository is a technical record of my ongoing cybersecurity learning and h
 
 Cybersecurity portfolio:
 
-https://shivansh2589.github.io/cyberSecurity-portfolio/
+https://cybersecurity-portfolio-bcu.pages.dev/
