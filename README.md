@@ -283,3 +283,18 @@ This repository is a technical record of my ongoing cybersecurity learning and h
 Cybersecurity portfolio:
 
 https://cybersecurity-portfolio-bcu.pages.dev/
+
+## LinkedIn Project Showcase
+
+### Wazuh SIEM – Privileged Active Directory Monitoring
+
+Successfully implemented and tested privileged Domain Admins membership change detection in my cybersecurity home lab.
+
+- Configured custom Wazuh Rule 100100 (Level 14) for privileged group monitoring.
+- Detected Windows Security Event ID 4728 during controlled Active Directory testing.
+- Verified automated email notification for the critical security alert.
+- Documented the detection and alerting workflow with original screenshots.
+
+**Published:** October 13, 2026
+
+[View LinkedIn Post – Wazuh Security Monitoring Achievement](https://www.linkedin.com/posts/laxmikant-sharma-cybersecurity_opentowork-cybersecurity-socanalyst-ugcPost-7515863098260590592-f4-K/)
