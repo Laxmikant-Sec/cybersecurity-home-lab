@@ -161,3 +161,28 @@ The lab is operational with centralized Wazuh monitoring, Active Directory event
 - Expanded custom Wazuh detections
 - Expanded Linux monitoring
 - Additional attack/defense scenarios
+
+
+## Wazuh SOC Security Monitoring Dashboard — October 2026
+
+Built and validated a custom SOC-style security monitoring dashboard using Wazuh SIEM and Windows Security event data collected from an isolated Proxmox home lab.
+
+### Dashboard Visualizations
+
+- **Security Alerts by Severity Level:** Bar chart showing Wazuh alert counts grouped by rule severity.
+- **Windows Failed Login Attempts Over Time:** Time-series visualization of Windows Event ID 4625.
+- **Group Membership Changes by SID:** Table tracking Windows Event ID 4728 and affected group security identifiers.
+- **Critical Domain Admins Security Alerts:** Metric tracking custom Wazuh Rule 100100 (Level 14), with two matching privileged group membership alerts verified on October 5, 2026.
+
+### Validation and Skills Demonstrated
+
+- Investigated Windows Security events and validated custom Wazuh detection rules using Discover and Threat Hunting.
+- Confirmed Domain Admins membership-change detection from Windows Server 2022, including the group SID ending in -512.
+- Configured event filters, aggregations, a 30-day search window, and a four-panel dashboard.
+- Practiced SOC-style monitoring, event correlation, detection validation, and security visualization.
+
+### Dashboard Screenshot
+
+![Wazuh SOC Security Monitoring Dashboard](Wazuh-SOC-Security-Monitoring-Dashboard-Oct-2026.png)
+
+*Screenshot captured October 2026. Counts reflect the selected historical monitoring period and may change with the dashboard time range.*
